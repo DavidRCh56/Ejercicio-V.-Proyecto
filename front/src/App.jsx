@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// App.js
+import React, { useState } from 'react';
+import VideoGameList from './components/VideoGameList';
+import CategoryFilter from './components/CategoryFilter';
+import PlatformFilter from './components/PlatformFilter';
+import SearchBox from './components/SearchBox';
+import VideoGameDetail from './components/VideoGameDetail';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const categoriasDisponibles = [
+  { id: 1, nombre: "Lucha" },
+  { id: 2, nombre: "Arcade" },
+  { id: 3, nombre: "Plataformas" },
+  { id: 4, nombre: "Shooter" },
+  { id: 5, nombre: "Estrategia" },
+  { id: 6, nombre: "Simulación" },
+  { id: 7, nombre: "Deporte" },
+  { id: 8, nombre: "Aventura" },
+  { id: 9, nombre: "Rol" },
+  { id: 10, nombre: "Educación" },
+  { id: 11, nombre: "Puzzle" }
+];
+
+const plataformasDisponibles = [
+  { id: 1, nombre: "PC" },
+  { id: 2, nombre: "PS5" },
+  { id: 3, nombre: "Xbox One" },
+  { id: 4, nombre: "Switch" },
+  { id: 5, nombre: "Android" },
+  { id: 6, nombre: "iOS" },
+];
+
+const App = () => {
+  const [selectedCategorias, setSelectedCategorias] = useState([]);
+  const [selectedPlataforma, setSelectedPlataforma] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedVideojuego, setSelectedVideojuego] = useState(null);
+
+  const toggleCategoria = (id) => {
+    setSelectedCategorias(prev => 
+      prev.includes(id) ? prev.filter(cat => cat !== id) : [...prev, id]
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <h1>Catálogo de Videojuegos</h1>
+      <div className="filters">
+        <CategoryFilter 
+          categorias={categoriasDisponibles} 
+          selectedCategorias={selectedCategorias}
+          onToggle={toggleCategoria}
+        />
+        <PlatformFilter 
+          plataformas={plataformasDisponibles} 
+          selectedPlataforma={selectedPlataforma} 
+          onChange={setSelectedPlataforma} 
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <SearchBox searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <VideoGameList 
+        selectedCategorias={selectedCategorias} 
+        selectedPlataforma={selectedPlataforma}
+        searchTerm={searchTerm}
+        onSelect={setSelectedVideojuego}
+        plataformasDisponibles={plataformasDisponibles}
+        categoriasDisponibles={categoriasDisponibles}
+      />
+      {selectedVideojuego && 
+        <VideoGameDetail 
+          videojuego={selectedVideojuego} 
+          onClose={() => setSelectedVideojuego(null)}
+        />
+      }
+    </div>
+  );
+};
 
-export default App
+export default App;
