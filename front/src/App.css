@@ -1,4 +1,3 @@
-/* App.css */
 .App {
   max-width: 1200px;
   margin: 0 auto;
@@ -18,15 +17,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Estilo para el filtro de categorías: columnas verticales de 4 elementos */
-.category-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(4, auto);
-  gap: 10px;
-}
-
-/* Estilo para el select (filtro de plataformas) */
 select {
   padding: 8px;
   border-radius: 4px;
@@ -112,20 +102,4 @@ select {
 
 .delete-btn:hover {
   opacity: 0.8;
-}
-
-.video-container {
-  margin-top: 15px;
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }

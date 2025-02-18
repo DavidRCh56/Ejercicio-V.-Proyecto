@@ -453,8 +453,7 @@
       { "id": 8, "nombre": "Aventura" },
       { "id": 9, "nombre": "Rol" },
       { "id": 10, "nombre": "Educación" },
-      { "id": 11, "nombre": "Puzzle" },
-      { "id": 12, "nombre": "Aventura Aérea" }
+      { "id": 11, "nombre": "Puzzle" }
     ],
     "plataformas": [
       { "id": 1, "nombre": "PC" },
