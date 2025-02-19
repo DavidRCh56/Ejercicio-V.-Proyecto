@@ -34,11 +34,17 @@ const App = () => {
   const [selectedPlataforma, setSelectedPlataforma] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedVideojuego, setSelectedVideojuego] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const toggleCategoria = (id) => {
     setSelectedCategorias((prev) =>
       prev.includes(id) ? prev.filter(catId => catId !== id) : [...prev, id]
     );
+  };
+
+  const handleDeleteSuccess = () => {
+    setRefreshKey(prev => prev + 1);
+    setSelectedVideojuego(null);
   };
 
   return (
@@ -58,6 +64,7 @@ const App = () => {
       </div>
       <SearchBox searchTerm={searchTerm} onSearchChange={setSearchTerm} />
       <VideoGameList 
+        key={refreshKey}
         selectedCategorias={selectedCategorias} 
         selectedPlataforma={selectedPlataforma}
         searchTerm={searchTerm}
@@ -69,6 +76,7 @@ const App = () => {
         <VideoGameDetail
           videojuego={selectedVideojuego}
           onClose={() => setSelectedVideojuego(null)}
+          onDeleteSuccess={handleDeleteSuccess}
         />
       )}
     </div>
