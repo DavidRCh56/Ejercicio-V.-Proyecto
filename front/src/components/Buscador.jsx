@@ -1,16 +1,16 @@
 import React from 'react';
 
-const SearchBox = ({ searchTerm, onSearchChange }) => {
+const Buscador = ({ terminoBusqueda, onSearchChange }) => {
   return (
     <div className="search-box">
       <input
         type="text"
         placeholder="Buscar videojuegos..."
-        value={searchTerm}
+        value={terminoBusqueda}
         onChange={(e) => onSearchChange(e.target.value)}
       />
     </div>
   );
 };
 
-export default SearchBox;
+export default Buscador;

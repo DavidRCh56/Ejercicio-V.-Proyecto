@@ -1,6 +1,6 @@
 import React from 'react';
 
-const VideoGameDetail = ({ videojuego, onClose, onDeleteSuccess }) => {
+const DetalleVideojuego = ({ videojuego, onClose, onDeleteSuccess }) => {
   if (!videojuego) return null;
 
   const handleDelete = () => {
@@ -62,4 +62,4 @@ const VideoGameDetail = ({ videojuego, onClose, onDeleteSuccess }) => {
   );
 };
 
-export default VideoGameDetail;
+export default DetalleVideojuego;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PlatformFilter = ({ plataformas, selectedPlataforma, onChange }) => {
+const FiltroPlataformas = ({ plataformas, plataformaSeleccionada, onChange }) => {
   return (
-    <select value={selectedPlataforma} onChange={(e) => onChange(e.target.value)}>
+    <select value={plataformaSeleccionada} onChange={(e) => onChange(e.target.value)}>
       <option value="">Todas</option>
       {plataformas.map((plat) => (
         <option key={plat.id} value={plat.id}>
@@ -13,4 +13,4 @@ const PlatformFilter = ({ plataformas, selectedPlataforma, onChange }) => {
   );
 };
 
-export default PlatformFilter;
+export default FiltroPlataformas;

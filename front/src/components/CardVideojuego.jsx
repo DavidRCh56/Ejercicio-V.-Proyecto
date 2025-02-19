@@ -1,19 +1,19 @@
 import React from 'react';
 
-const VideoGameCard = ({
+const CardVideojuego = ({
   videojuego,
   onSelect,
   plataformasDisponibles,
   categoriasDisponibles,
 }) => {
   const nombresPlataformas = videojuego.plataformas.map((pId) => {
-    const platforma = plataformasDisponibles.find((p) => p.id === pId);
-    return platforma ? platforma.nombre : pId;
+    const plataforma = plataformasDisponibles.find((p) => p.id === pId);
+    return plataforma ? plataforma.nombre : pId;
   });
 
   const nombresCategorias = videojuego.categorias.map((cId) => {
-    const categorias = categoriasDisponibles.find((c) => c.id === cId);
-    return categorias ? categorias.nombre : cId;
+    const categoria = categoriasDisponibles.find((c) => c.id === cId);
+    return categoria ? categoria.nombre : cId;
   });
 
   const descripcionCorta =
@@ -43,4 +43,4 @@ const VideoGameCard = ({
   );
 };
 
-export default VideoGameCard;
+export default CardVideojuego;

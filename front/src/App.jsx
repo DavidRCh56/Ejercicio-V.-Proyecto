@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import VideoGameList from './components/VideoGameList';
-import CategoryFilter from './components/CategoryFilter';
-import PlatformFilter from './components/PlatformFilter';
-import SearchBox from './components/SearchBox';
-import VideoGameDetail from './components/VideoGameDetail';
+import FiltroCategorias from './components/FiltroCategorias';
+import FiltroPlataformas from './components/FiltroPlataformas';
+import DetalleVideojuego from './components/DetalleVideojuego';
+import VideojuegosList from './components/VideojuegosList';
+import Buscador from './components/Buscador'
 import './App.css';
 
 const categoriasDisponibles = [
@@ -30,53 +30,53 @@ const plataformasDisponibles = [
 ];
 
 const App = () => {
-  const [selectedCategorias, setSelectedCategorias] = useState([]);
-  const [selectedPlataforma, setSelectedPlataforma] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedVideojuego, setSelectedVideojuego] = useState(null);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
+  const [plataformaSeleccionada, setPlataformaSeleccionada] = useState("");
+  const [terminoBusqueda, setTerminoBusqueda] = useState("");
+  const [videojuegoSeleccionado, setVideojuegoSeleccionado] = useState(null);
+  const [claveActualizacion, setClaveActualizacion] = useState(0);
 
-  const toggleCategoria = (id) => {
-    setSelectedCategorias((prev) =>
+  const alternarCategoria = (id) => {
+    setCategoriasSeleccionadas((prev) =>
       prev.includes(id) ? prev.filter(catId => catId !== id) : [...prev, id]
     );
   };
 
-  const handleDeleteSuccess = () => {
-    setRefreshKey(prev => prev + 1);
-    setSelectedVideojuego(null);
+  const manejarEliminacionExitosa = () => {
+    setClaveActualizacion(prev => prev + 1);
+    setVideojuegoSeleccionado(null);
   };
 
   return (
     <div className="App">
       <h1>Catálogo de Videojuegos</h1>
       <div className="filters">
-        <CategoryFilter 
+        <FiltroCategorias 
           categorias={categoriasDisponibles} 
-          selectedCategorias={selectedCategorias}
-          onToggle={toggleCategoria}
+          categoriasSeleccionadas={categoriasSeleccionadas}
+          onToggle={alternarCategoria}
         />
-        <PlatformFilter 
+        <FiltroPlataformas 
           plataformas={plataformasDisponibles} 
-          selectedPlataforma={selectedPlataforma} 
-          onChange={setSelectedPlataforma} 
+          plataformaSeleccionada={plataformaSeleccionada} 
+          onChange={setPlataformaSeleccionada} 
         />
       </div>
-      <SearchBox searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-      <VideoGameList 
-        key={refreshKey}
-        selectedCategorias={selectedCategorias} 
-        selectedPlataforma={selectedPlataforma}
-        searchTerm={searchTerm}
-        onSelect={setSelectedVideojuego}
+      <Buscador terminoBusqueda={terminoBusqueda} onSearchChange={setTerminoBusqueda} />
+      <VideojuegosList 
+        key={claveActualizacion}
+        categoriasSeleccionadas={categoriasSeleccionadas} 
+        plataformaSeleccionada={plataformaSeleccionada}
+        terminoBusqueda={terminoBusqueda}
+        onSelect={setVideojuegoSeleccionado}
         plataformasDisponibles={plataformasDisponibles}
         categoriasDisponibles={categoriasDisponibles}
       />
-      {selectedVideojuego && (
-        <VideoGameDetail
-          videojuego={selectedVideojuego}
-          onClose={() => setSelectedVideojuego(null)}
-          onDeleteSuccess={handleDeleteSuccess}
+      {videojuegoSeleccionado && (
+        <DetalleVideojuego
+          videojuego={videojuegoSeleccionado}
+          onClose={() => setVideojuegoSeleccionado(null)}
+          onDeleteSuccess={manejarEliminacionExitosa}
         />
       )}
     </div>
