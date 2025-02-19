@@ -1,27 +1,44 @@
-// components/VideoGameCard.js
 import React from 'react';
 
-const VideoGameCard = ({ videojuego, onSelect, plataformasDisponibles, categoriasDisponibles }) => {
-  const platformNames = videojuego.plataformas.map(pId => {
-    const plat = plataformasDisponibles.find(p => p.id === pId);
-    return plat ? plat.nombre : pId;
+const VideoGameCard = ({
+  videojuego,
+  onSelect,
+  plataformasDisponibles,
+  categoriasDisponibles,
+}) => {
+  const nombresPlataformas = videojuego.plataformas.map((pId) => {
+    const platforma = plataformasDisponibles.find((p) => p.id === pId);
+    return platforma ? platforma.nombre : pId;
   });
 
-  const categoryNames = videojuego.categorias.map(cId => {
-    const cat = categoriasDisponibles.find(c => c.id === cId);
-    return cat ? cat.nombre : cId;
+  const nombresCategorias = videojuego.categorias.map((cId) => {
+    const categorias = categoriasDisponibles.find((c) => c.id === cId);
+    return categorias ? categorias.nombre : cId;
   });
 
-  const shortDescription = videojuego.descripcion.substring(0, 100) + '...';
+  const descripcionCorta =
+    videojuego.descripcion.length > 100
+      ? `${videojuego.descripcion.substring(0, 100)}...`
+      : videojuego.descripcion;
 
   return (
     <div className="videojuego-card" onClick={() => onSelect(videojuego)}>
-      <img src={videojuego.imagen} alt={videojuego.nombre} className="videojuego-imagen" />
+      <img
+        src={videojuego.imagen}
+        alt={videojuego.nombre}
+        className="videojuego-imagen"
+      />
       <h3>{videojuego.nombre}</h3>
-      <p>{shortDescription}</p>
-      <p><strong>Plataformas:</strong> {platformNames.join(', ')}</p>
-      <p><strong>Categorías:</strong> {categoryNames.join(', ')}</p>
-      <p><strong>Precio:</strong> ${videojuego.precio}</p>
+      <p>{descripcionCorta}</p>
+      <p>
+        <strong>Plataformas:</strong> {nombresPlataformas.join(", ")}
+      </p>
+      <p>
+        <strong>Categorías:</strong> {nombresCategorias.join(", ")}
+      </p>
+      <p>
+        <strong>Precio:</strong> ${videojuego.precio}
+      </p>
     </div>
   );
 };

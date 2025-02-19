@@ -1,4 +1,3 @@
-// components/SearchBox.js
 import React from 'react';
 
 const SearchBox = ({ searchTerm, onSearchChange }) => {
@@ -8,7 +7,7 @@ const SearchBox = ({ searchTerm, onSearchChange }) => {
         type="text"
         placeholder="Buscar videojuegos..."
         value={searchTerm}
-        onChange={e => onSearchChange(e.target.value)}
+        onChange={(e) => onSearchChange(e.target.value)}
       />
     </div>
   );

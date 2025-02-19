@@ -1,10 +1,9 @@
-// components/CategoryFilter.js
 import React from 'react';
 
 const CategoryFilter = ({ categorias, selectedCategorias, onToggle }) => {
   return (
     <div className="category-grid">
-      {categorias.map(cat => (
+      {categorias.map((cat) => (
         <label key={cat.id}>
           <input 
             type="checkbox"

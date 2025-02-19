@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import VideoGameList from './components/VideoGameList';
 import CategoryFilter from './components/CategoryFilter';
@@ -37,8 +36,8 @@ const App = () => {
   const [selectedVideojuego, setSelectedVideojuego] = useState(null);
 
   const toggleCategoria = (id) => {
-    setSelectedCategorias(prev => 
-      prev.includes(id) ? prev.filter(cat => cat !== id) : [...prev, id]
+    setSelectedCategorias((prev) =>
+      prev.includes(id) ? prev.filter(catId => catId !== id) : [...prev, id]
     );
   };
 
@@ -66,12 +65,12 @@ const App = () => {
         plataformasDisponibles={plataformasDisponibles}
         categoriasDisponibles={categoriasDisponibles}
       />
-      {selectedVideojuego && 
-        <VideoGameDetail 
-          videojuego={selectedVideojuego} 
+      {selectedVideojuego && (
+        <VideoGameDetail
+          videojuego={selectedVideojuego}
           onClose={() => setSelectedVideojuego(null)}
         />
-      }
+      )}
     </div>
   );
 };
