@@ -31,13 +31,6 @@ const VideoGameDetail = ({ videojuego, onClose, onDeleteSuccess }) => {
         <img 
           src={videojuego.imagen} 
           alt={videojuego.nombre} 
-          style={{ 
-            display: 'block', 
-            margin: '0 auto', 
-            width: '300px', 
-            height: '200px', 
-            objectFit: 'cover'
-          }} 
         />
         <p>{videojuego.descripcion}</p>
         <p>
