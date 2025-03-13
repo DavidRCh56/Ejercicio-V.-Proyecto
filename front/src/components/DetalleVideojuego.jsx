@@ -1,64 +1,66 @@
 import React from 'react';
+import axios from 'axios';
+import { Box, Typography, Button } from '@mui/material';
 
 const DetalleVideojuego = ({ videojuego, onClose, onDeleteSuccess }) => {
   if (!videojuego) return null;
 
   const handleDelete = () => {
     if (window.confirm("¿Estás seguro de que deseas eliminar este videojuego?")) {
-      fetch(`http://localhost:3000/videojuegos/${videojuego.id}`, {
-        method: 'DELETE'
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Videojuego eliminado correctamente.");
-          if (onDeleteSuccess) onDeleteSuccess();
-        } else {
+      axios.delete(`http://localhost:3000/videojuegos/${videojuego.id}`)
+        .then(response => {
+          if (response.status === 200) {
+            alert("Videojuego eliminado correctamente.");
+            if (onDeleteSuccess) onDeleteSuccess();
+          } else {
+            alert("Error al eliminar el videojuego.");
+          }
+        })
+        .catch(error => {
+          console.error("Error al eliminar el videojuego:", error);
           alert("Error al eliminar el videojuego.");
-        }
-      })
-      .catch(error => {
-        console.error("Error al eliminar el videojuego:", error);
-        alert("Error al eliminar el videojuego.");
-      });
+        });
     }
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal" style={{ color: 'black' }}>
-        <button className="close-btn" onClick={onClose}>Cerrar</button>
-        <h2>{videojuego.nombre}</h2>
-        <img 
-          src={videojuego.imagen} 
-          alt={videojuego.nombre} 
-        />
-        <p>{videojuego.descripcion}</p>
-        <p>
-          <strong>Fecha de lanzamiento:</strong> {videojuego.fechaLanzamiento}
-        </p>
-        <p>
-          <strong>Compañía:</strong> {videojuego.compania}
-        </p>
-        <p>
-          <strong>Plataformas:</strong> {videojuego.plataformas.join(", ")}
-        </p>
-        <p>
-          <strong>Categorías:</strong> {videojuego.categorias.join(", ")}
-        </p>
-        <p>
-          <strong>Precio:</strong> ${videojuego.precio}
-        </p>
-        <div className="video-container">
-          <iframe 
-            src={videojuego.video} 
-            title={videojuego.nombre} 
-            frameBorder="0" 
-            allowFullScreen
-          ></iframe>
-        </div>
-        <button className="delete-btn" onClick={handleDelete}>Eliminar videojuego</button>
-      </div>
-    </div>
+    <Box sx={{ color: 'black' }}>
+      <Button variant="contained" onClick={onClose}>Cerrar</Button>
+      <Typography variant="h4" component="h2" gutterBottom>
+        {videojuego.nombre}
+      </Typography>
+      <img src={videojuego.imagen} alt={videojuego.nombre} style={{ maxWidth: '100%' }} />
+      <Typography variant="body1" gutterBottom>
+        {videojuego.descripcion}
+      </Typography>
+      <Typography variant="body2">
+        <strong>Fecha de lanzamiento:</strong> {videojuego.fechaLanzamiento}
+      </Typography>
+      <Typography variant="body2">
+        <strong>Compañía:</strong> {videojuego.compania}
+      </Typography>
+      <Typography variant="body2">
+        <strong>Plataformas:</strong> {videojuego.plataformas.join(", ")}
+      </Typography>
+      <Typography variant="body2">
+        <strong>Categorías:</strong> {videojuego.categorias.join(", ")}
+      </Typography>
+      <Typography variant="body2">
+        <strong>Precio:</strong> ${videojuego.precio}
+      </Typography>
+      <Box sx={{ mt: 2 }}>
+        <iframe 
+          src={videojuego.video} 
+          title={videojuego.nombre} 
+          frameBorder="0" 
+          allowFullScreen
+          style={{ width: '100%', height: '315px' }}
+        ></iframe>
+      </Box>
+      <Button variant="outlined" color="error" onClick={handleDelete} sx={{ mt: 2 }}>
+        Eliminar videojuego
+      </Button>
+    </Box>
   );
 };
 

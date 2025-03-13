@@ -10,7 +10,15 @@ npm install
 ```bash
 npm run dev
 ```
-
+los dos siguientes comandos dentro de front, para que pille todo el proyecto. 
+este es para instalar los estilos
+```bash
+npm install @mui/material @emotion/react @emotion/styled
+```
+este las peticiones HTTP
+```bash
+npm install axios
+```
 
 para ejecutar el back en la v2, dentro de backend:
 ```bash

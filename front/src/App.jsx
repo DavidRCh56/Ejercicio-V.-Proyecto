@@ -1,20 +1,34 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
-import Login from "./components/Login";
-import { AuthProvider } from "./context/AuthContext";
 import Layout from "./components/Layout";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
+
+const PrivateRoute = ({ children }) => {
+  const { user } = useContext(AuthContext);
+  return user.isLogged ? children : <Navigate to="/login" replace />;
+};
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Layout />}>
+          <Route 
+            path="/home" 
+            element={
+              <PrivateRoute>
+                <Layout />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<Home />} />
           </Route>
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

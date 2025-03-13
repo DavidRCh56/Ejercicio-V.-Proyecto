@@ -1,19 +1,22 @@
 import React from 'react';
+import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
 const FiltroCategorias = ({ categorias, categoriasSeleccionadas, onToggle }) => {
   return (
-    <div className="category-grid">
+    <FormGroup>
       {categorias.map((cat) => (
-        <label key={cat.id}>
-          <input 
-            type="checkbox"
-            checked={categoriasSeleccionadas.includes(cat.id)}
-            onChange={() => onToggle(cat.id)}
-          />
-          {cat.nombre}
-        </label>
+        <FormControlLabel
+          key={cat.id}
+          control={
+            <Checkbox 
+              checked={categoriasSeleccionadas.includes(cat.id)}
+              onChange={() => onToggle(cat.id)}
+            />
+          }
+          label={cat.nombre}
+        />
       ))}
-    </div>
+    </FormGroup>
   );
 };
 

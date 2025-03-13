@@ -1,11 +1,7 @@
 import React from 'react';
+import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 
-const CardVideojuego = ({
-  videojuego,
-  onSelect,
-  plataformasDisponibles,
-  categoriasDisponibles,
-}) => {
+const CardVideojuego = ({ videojuego, onSelect, plataformasDisponibles, categoriasDisponibles }) => {
   const nombresPlataformas = videojuego.plataformas.map((pId) => {
     const plataforma = plataformasDisponibles.find((p) => p.id === pId);
     return plataforma ? plataforma.nombre : pId;
@@ -22,24 +18,31 @@ const CardVideojuego = ({
       : videojuego.descripcion;
 
   return (
-    <div className="videojuego-card" onClick={() => onSelect(videojuego)}>
-      <img
-        src={videojuego.imagen}
+    <Card onClick={() => onSelect(videojuego)} sx={{ cursor: 'pointer' }}>
+      <CardMedia
+        component="img"
+        height="140"
+        image={videojuego.imagen}
         alt={videojuego.nombre}
-        className="videojuego-imagen"
       />
-      <h3>{videojuego.nombre}</h3>
-      <p>{descripcionCorta}</p>
-      <p>
-        <strong>Plataformas:</strong> {nombresPlataformas.join(", ")}
-      </p>
-      <p>
-        <strong>Categorías:</strong> {nombresCategorias.join(", ")}
-      </p>
-      <p>
-        <strong>Precio:</strong> ${videojuego.precio}
-      </p>
-    </div>
+      <CardContent>
+        <Typography gutterBottom variant="h5">
+          {videojuego.nombre}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {descripcionCorta}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <strong>Plataformas:</strong> {nombresPlataformas.join(", ")}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <strong>Categorías:</strong> {nombresCategorias.join(", ")}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <strong>Precio:</strong> ${videojuego.precio}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 
